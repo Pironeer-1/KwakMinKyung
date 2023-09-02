@@ -1,7 +1,31 @@
-import "./App.css";
-import React, { useState } from "react";
+import { useState } from "react";
 
-const Nav = (props) => {
+function Article(props) {
+  return (
+    <article>
+      <h2>{props.title}</h2>
+      {props.body}
+    </article>
+  );
+}
+function Header(props) {
+  return (
+    <header>
+      <h1>
+        <a
+          href="/"
+          onClick={(event) => {
+            event.preventDefault();
+            props.onChangeMode();
+          }}
+        >
+          {props.title}
+        </a>
+      </h1>
+    </header>
+  );
+}
+function Nav(props) {
   const lis = [];
   for (let i = 0; i < props.topics.length; i++) {
     let t = props.topics[i];
@@ -25,33 +49,6 @@ const Nav = (props) => {
       <ol>{lis}</ol>
     </nav>
   );
-};
-
-const Article = (props) => {
-  return (
-    <article>
-      <h2>{props.title}</h2>
-      {props.body}
-    </article>
-  );
-};
-
-function Header(props) {
-  return (
-    <header>
-      <h1>
-        <a
-          href="/"
-          onClick={function (event) {
-            event.preventDefault();
-            props.onChangeMode();
-          }}
-        >
-          {props.title}
-        </a>
-      </h1>
-    </header>
-  );
 }
 function Create(props) {
   return (
@@ -69,16 +66,15 @@ function Create(props) {
           <input type="text" name="title" placeholder="title" />
         </p>
         <p>
-          <textarea name="body" placeholder="body" />
+          <textarea name="body" placeholder="body"></textarea>
         </p>
         <p>
-          <input type="submit" value="Create" />
+          <input type="submit" value="Create"></input>
         </p>
       </form>
     </article>
   );
 }
-
 function Update(props) {
   const [title, setTitle] = useState(props.title);
   const [body, setBody] = useState(props.body);
@@ -121,7 +117,6 @@ function Update(props) {
     </article>
   );
 }
-
 function App() {
   const [mode, setMode] = useState("WELCOME");
   const [id, setId] = useState(null);
@@ -131,7 +126,6 @@ function App() {
     { id: 2, title: "css", body: "css is ..." },
     { id: 3, title: "javascript", body: "javascript is ..." },
   ]);
-
   let content = null;
   let contextControl = null;
   if (mode === "WELCOME") {
@@ -147,17 +141,35 @@ function App() {
     }
     content = <Article title={title} body={body}></Article>;
     contextControl = (
-      <li>
-        <a
-          href={"/update/" + id}
-          onClick={(event) => {
-            event.preventDefault();
-            setMode("UPDATE");
-          }}
-        >
-          Update
-        </a>
-      </li>
+      <>
+        <li>
+          <a
+            href={"/update/" + id}
+            onClick={(event) => {
+              event.preventDefault();
+              setMode("UPDATE");
+            }}
+          >
+            Update
+          </a>
+        </li>
+        <li>
+          <input
+            type="button"
+            value="Delete"
+            onClick={() => {
+              const newTopics = [];
+              for (let i = 0; i < topics.length; i++) {
+                if (topics[i].id !== id) {
+                  newTopics.push(topics[i]);
+                }
+              }
+              setTopics(newTopics);
+              setMode("WELCOME");
+            }}
+          />
+        </li>
+      </>
     );
   } else if (mode === "CREATE") {
     content = (
