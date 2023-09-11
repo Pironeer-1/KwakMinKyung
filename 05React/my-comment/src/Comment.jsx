@@ -39,10 +39,10 @@ const Comment = (props) => {
           src="https://cdn-icons-png.flaticon.com/512/6522/6522516.png"
           style={styles.image}
         />
-        <div style={styles.contentContainer}>
-          <span style={styles.nameText}>{props.name}</span>
-          <span style={styles.commentText}>{props.content}</span>
-        </div>
+      </div>
+      <div style={styles.contentContainer}>
+        <span style={styles.nameText}>{props.name}</span>
+        <span style={styles.commentText}>{props.content}</span>
       </div>
     </div>
   );
