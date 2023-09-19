@@ -6,11 +6,12 @@ import Accomodate from "./Accomodate";
 import ConfirmButton from "./chapter_08/ConfirmButton";
 import LandingPage from "./chapter_09/LandingPage";
 import AttendanceBook from "./chapter_10/AttendanceBook";
+import Signup from "./chapter_11/Signup";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <AttendanceBook />
+    <Signup />
   </React.StrictMode>
 );
 
